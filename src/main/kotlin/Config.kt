@@ -12,4 +12,6 @@ object Config {
     }
 
     val keyPressPauseRange = 50..100L
+
+    val tempDirectory = """C:\Users\nikaj\AppData\Local\Temp\busy-robot\"""
 }

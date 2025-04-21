@@ -5,10 +5,10 @@ import java.awt.Robot
 import java.awt.event.KeyEvent
 import java.io.File
 
-fun Robot.workOnFile(srcFileUrl: String, pauseRange: LongRange) {
-    val srcFile = File(srcFileUrl)
+fun Robot.workOnFile(workingFileUrl: String, sourceUrl: String, pauseRange: LongRange) {
+    val srcFile = File(sourceUrl)
     srcFile.bufferedReader().use { reader ->
-        openInIntellij("""D:\dev\file-write\files\dest.kt""")
+        openInIntellij(workingFileUrl)
 
         deleteFileContents()
         reader.readLines().forEach { line ->
@@ -22,8 +22,6 @@ fun Robot.workOnFile(srcFileUrl: String, pauseRange: LongRange) {
             }
             perform(KeyPress.enter())
             perform(KeyPress.home())
-            mouseMove(700, 500)
-            mouseMove(700, 200)
         }
     }
 }
