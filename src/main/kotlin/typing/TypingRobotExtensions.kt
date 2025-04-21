@@ -5,7 +5,11 @@ import java.awt.Robot
 import java.awt.event.KeyEvent
 import java.io.File
 
-fun Robot.workOnFile(workingFileUrl: String, sourceUrl: String, pauseRange: LongRange) {
+fun Robot.workOnFile(
+    workingFileUrl: String,
+    sourceUrl: String,
+    pauseRange: LongRange
+) {
     val srcFile = File(sourceUrl)
     srcFile.bufferedReader().use { reader ->
         openInIntellij(workingFileUrl)

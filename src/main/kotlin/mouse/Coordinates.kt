@@ -10,4 +10,13 @@ data class Coordinates(
             y + (vector.y * timeDelta),
         )
     }
+
+    fun applyJitter(jitter: Int): Coordinates {
+        if (jitter <= 0) {
+            return this
+        } else {
+            val randomJitter = (-jitter..jitter).random()
+            return Coordinates(x + randomJitter, y + randomJitter)
+        }
+    }
 }
