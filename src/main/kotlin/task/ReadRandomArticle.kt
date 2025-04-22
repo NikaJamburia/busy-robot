@@ -3,17 +3,17 @@ package ge.nika.task
 import ge.nika.*
 import ge.nika.browser.closeBrowser
 import ge.nika.browser.openInBrowser
+import ge.nika.browser.randomUrl
 import ge.nika.mouse.Coordinates
 import ge.nika.mouse.MovementResult
 import ge.nika.mouse.moveMouseSmoothly
 import ge.nika.mouse.scrollSmoothly
 import java.awt.Robot
 
-class ReadArticle(
-    private val url: String,
-) : TimedTask() {
+class ReadRandomArticle : TimedTask() {
 
     override val name: String = this::class.simpleName ?: "UnnamedTask"
+    private val url: String = randomUrl()
 
     override fun run(robot: Robot) {
         openInBrowser(url)
