@@ -1,26 +1,54 @@
 package ge.nika
 
+import com.charleskorn.kaml.Yaml
+import com.charleskorn.kaml.decodeFromStream
 import ge.nika.mouse.Coordinates
-import java.util.*
+import kotlinx.serialization.Serializable
+import java.io.File
 
-object Config {
-    val osName = System.getProperty("os.name").lowercase(Locale.ENGLISH)
+data object Config {
 
-    val intellijExecutable: String = when {
-        osName.contains("windows") ->
-            """C:\Users\nikaj\AppData\Local\Programs\IntelliJ IDEA Ultimate\bin\idea64.exe"""
-        else -> error("Idk yet")
+    lateinit var intellijExecutable: String
+        private set
+
+    lateinit var browserCommand: String
+        private set
+
+    lateinit var closeBrowserCommand: String
+        private set
+
+    lateinit var keyPressPauseRange: LongRange
+        private set
+
+    lateinit var tempDirectory: String
+        private set
+
+    lateinit var screenDimensions: Coordinates
+        private set
+
+    fun initFromYamlFile(configFilePath: String) {
+
+        val dto = File(configFilePath).inputStream().use {
+            Yaml.default.decodeFromStream<ConfigurationDto>(it)
+        }
+
+        intellijExecutable = dto.intellijExecutable
+        browserCommand = dto.browserCommand
+        closeBrowserCommand = dto.closeBrowserCommand
+        keyPressPauseRange = dto.keyPressPauseRangeMin..dto.keyPressPauseRangeMax
+        tempDirectory = dto.tempDirectory
+        screenDimensions = Coordinates(dto.screenW.toDouble(), dto.screenH.toDouble())
     }
 
-    val browserCommand: String = """
-        "C:\Program Files\Google\Chrome\Application\chrome.exe"
-    """.trimIndent()
-
-    val closeBrowserCommand: String = "taskkill /F /IM chrome.exe /T"
-
-    val keyPressPauseRange = 50..100L
-
-    val tempDirectory = """C:\Users\nikaj\AppData\Local\Temp\busy-robot\"""
-
-    val screenDimensions = Coordinates(1920.0, 1080.0)
+    @Serializable
+    private data class ConfigurationDto(
+        val intellijExecutable: String,
+        val browserCommand: String,
+        val closeBrowserCommand: String,
+        val keyPressPauseRangeMin: Long,
+        val keyPressPauseRangeMax: Long,
+        val tempDirectory: String,
+        val screenH: Int,
+        val screenW: Int,
+    )
 }

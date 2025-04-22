@@ -1,0 +1,8 @@
+intellijExecutable: C:\Users\nikaj\AppData\Local\Programs\IntelliJ IDEA Ultimate\bin\idea64.exe
+browserCommand: '"C:\Program Files\Google\Chrome\Application\chrome.exe"'
+closeBrowserCommand: taskkill /F /IM chrome.exe /T
+keyPressPauseRangeMin: 50
+keyPressPauseRangeMax: 100
+tempDirectory: C:\Users\nikaj\AppData\Local\Temp\busy-robot\
+screenH: 1080
+screenW: 1920
