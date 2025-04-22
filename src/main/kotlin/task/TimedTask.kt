@@ -24,9 +24,9 @@ abstract class TimedTask {
         }
 
         runnerThread.join(forTime)
-        println("Interrupting task $name. $forTime passed.")
 
         if (runnerThread.isAlive) {
+            println("Interrupting task $name. $forTime passed.")
             runnerThread.interrupt()
         }
 
