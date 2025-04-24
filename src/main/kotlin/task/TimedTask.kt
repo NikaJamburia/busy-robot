@@ -10,6 +10,7 @@ abstract class TimedTask {
     protected abstract fun cleanUp(robot: Robot)
 
     fun executeFor(forTime: Long, robot: Robot): Robot {
+        val startTime = System.currentTimeMillis()
         val runnerThread = thread {
             try {
                 println("Performing task $name")
@@ -28,8 +29,9 @@ abstract class TimedTask {
         if (runnerThread.isAlive) {
             println("Interrupting task $name. $forTime passed.")
             runnerThread.interrupt()
+        } else {
+            println("Task $name finished in ${System.currentTimeMillis() - startTime} ms")
         }
-
         return robot
     }
 

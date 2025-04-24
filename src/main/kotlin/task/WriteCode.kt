@@ -13,10 +13,11 @@ class WriteCode(
 
     private val tempFiles = mutableListOf<String>()
 
-    override val name: String = this::class.simpleName ?: "UnnamedTask"
+    override val name: String = "${this::class.simpleName}: $workingDir"
 
     override fun run(robot: Robot) {
         getJavaAndKotlinFilePaths(workingDir)
+            .shuffled()
             .forEach {
                 val tempUrl = it.copyToTemp()
                 tempFiles.add(tempUrl)
