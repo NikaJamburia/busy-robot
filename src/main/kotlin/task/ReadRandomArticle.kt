@@ -4,6 +4,7 @@ import ge.nika.*
 import ge.nika.browser.closeBrowser
 import ge.nika.browser.openInBrowser
 import ge.nika.browser.randomUrl
+import ge.nika.configuration.Config
 import ge.nika.mouse.Coordinates
 import ge.nika.mouse.MovementResult
 import ge.nika.mouse.moveMouseSmoothly

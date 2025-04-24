@@ -1,4 +1,4 @@
-package ge.nika
+package ge.nika.configuration
 
 import com.charleskorn.kaml.Yaml
 import com.charleskorn.kaml.decodeFromStream

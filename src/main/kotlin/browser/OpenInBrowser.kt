@@ -1,6 +1,6 @@
 package ge.nika.browser
 
-import ge.nika.Config
+import ge.nika.configuration.Config
 import ge.nika.task.TimedTask
 import java.io.File
 

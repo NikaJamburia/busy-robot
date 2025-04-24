@@ -1,5 +1,6 @@
 package ge.nika
 
+import ge.nika.configuration.Config
 import ge.nika.mouse.Coordinates
 
 val Number.minutes: Long

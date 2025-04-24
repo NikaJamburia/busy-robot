@@ -1,6 +1,6 @@
 package ge.nika.files
 
-import ge.nika.Config
+import ge.nika.configuration.Config
 import java.io.File
 
 fun getJavaAndKotlinFilePaths(directory: String): List<String> {

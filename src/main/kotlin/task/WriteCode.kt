@@ -1,6 +1,6 @@
 package ge.nika.task
 
-import ge.nika.Config
+import ge.nika.configuration.Config
 import ge.nika.files.copyToTemp
 import ge.nika.files.getJavaAndKotlinFilePaths
 import ge.nika.typing.workOnFile

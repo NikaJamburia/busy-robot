@@ -1,10 +1,13 @@
 package ge.nika
 
-import ge.nika.args.parseCommandLineArgs
-import ge.nika.task.ReadRandomArticle
+import com.charleskorn.kaml.Yaml
+import com.charleskorn.kaml.decodeFromStream
+import ge.nika.configuration.Config
+import ge.nika.configuration.TimedTaskDescriptionDto
+import ge.nika.configuration.parseCommandLineArgs
 import ge.nika.task.TimedTask.Companion.executeTask
-import ge.nika.task.WriteCode
 import java.awt.Robot
+import java.io.File
 
 fun main(args: Array<String>) {
 
@@ -12,11 +15,17 @@ fun main(args: Array<String>) {
 
     Config.initFromYamlFile(argsMap["config"]!!)
 
-    Robot()
-        .executeTask(WriteCode("""D:\dev\file-write\src"""), 1.hours)
-        .executeTask(ReadRandomArticle(), 15.minutes)
-        .executeTask(WriteCode("""D:\dev\busy-robot\testFiles"""), 20.minutes)
+    val robot = Robot()
 
+    getTasksFromFile(argsMap["tasksFile"]!!).forEach { taskDto ->
+        robot.executeTask(taskDto.toTimedTask(), taskDto.timeMillis)
+    }
+}
+
+private fun getTasksFromFile(fileName: String): List<TimedTaskDescriptionDto> {
+    return File(fileName).inputStream().use {
+        Yaml.default.decodeFromStream<List<TimedTaskDescriptionDto>>(it)
+    }
 }
 
 

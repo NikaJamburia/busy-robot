@@ -1,4 +1,4 @@
-package ge.nika.args
+package ge.nika.configuration
 
 fun parseCommandLineArgs(args: Array<String>): Map<String, String> {
     return buildMap {
