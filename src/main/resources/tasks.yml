@@ -1,4 +1,4 @@
 [
   { name: "WriteCode", args: ["D:\\dev\\file-write\\src"], timeStr: "10s" },
-  { name: "WriteCode", args: ["D:\\dev\\file-write\\src"], timeStr: "1h" }
+  { name: "ReadRandomArticle", args: [], timeStr: "10s" }
 ]

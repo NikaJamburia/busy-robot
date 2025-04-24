@@ -26,9 +26,9 @@ data object Config {
     lateinit var screenDimensions: Coordinates
         private set
 
-    fun initFromYamlFile(configFilePath: String) {
+    fun initFromClArgs() {
 
-        val dto = File(configFilePath).inputStream().use {
+        val dto = File(clArguments["config"]!!).inputStream().use {
             Yaml.default.decodeFromStream<ConfigurationDto>(it)
         }
 

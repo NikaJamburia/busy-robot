@@ -4,26 +4,26 @@ import com.charleskorn.kaml.Yaml
 import com.charleskorn.kaml.decodeFromStream
 import ge.nika.configuration.Config
 import ge.nika.configuration.TimedTaskDescriptionDto
-import ge.nika.configuration.parseCommandLineArgs
+import ge.nika.configuration.clArguments
+import ge.nika.configuration.initCommandLineArgs
 import ge.nika.task.TimedTask.Companion.executeTask
 import java.awt.Robot
 import java.io.File
 
 fun main(args: Array<String>) {
 
-    val argsMap = parseCommandLineArgs(args)
-
-    Config.initFromYamlFile(argsMap["config"]!!)
+    initCommandLineArgs(args)
+    Config.initFromClArgs()
 
     val robot = Robot()
 
-    getTasksFromFile(argsMap["tasksFile"]!!).forEach { taskDto ->
+    getConfiguredTasks().forEach { taskDto ->
         robot.executeTask(taskDto.toTimedTask(), taskDto.timeMillis)
     }
 }
 
-private fun getTasksFromFile(fileName: String): List<TimedTaskDescriptionDto> {
-    return File(fileName).inputStream().use {
+private fun getConfiguredTasks(): List<TimedTaskDescriptionDto> {
+    return File(clArguments["tasksFile"]!!).inputStream().use {
         Yaml.default.decodeFromStream<List<TimedTaskDescriptionDto>>(it)
     }
 }

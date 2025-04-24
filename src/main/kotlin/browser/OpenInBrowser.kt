@@ -1,6 +1,7 @@
 package ge.nika.browser
 
 import ge.nika.configuration.Config
+import ge.nika.configuration.clArguments
 import ge.nika.task.TimedTask
 import java.io.File
 
@@ -18,8 +19,5 @@ fun closeBrowser() {
         .get()
 }
 
-fun randomUrl(): String {
-    return File(
-        TimedTask::class.java.classLoader.getResource("urls.txt")!!.toURI()
-    ).readLines().random()
-}
+fun randomUrl(): String =
+    File(clArguments["urls"]!!).readLines().random()
