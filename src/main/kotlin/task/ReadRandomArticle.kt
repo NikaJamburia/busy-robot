@@ -17,7 +17,9 @@ class ReadRandomArticle : TimedTask() {
     private val url: String = randomUrl()
 
     override fun run(robot: Robot) {
+        println("beee")
         openInBrowser(url)
+        println("beee2")
         Thread.sleep(1.seconds)
 
         val readingStartPosition = robot.moveMouseSmoothly(

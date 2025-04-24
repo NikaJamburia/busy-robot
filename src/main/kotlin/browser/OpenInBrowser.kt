@@ -7,16 +7,12 @@ import java.io.File
 
 fun openInBrowser(url: String) {
     Runtime.getRuntime()
-        .exec("""${Config.browserCommand} "$url" """)
-        .onExit()
-        .get()
+        .exec("""${Config.browserCommand} $url """)
 }
 
 fun closeBrowser() {
     Runtime.getRuntime()
         .exec(Config.closeBrowserCommand)
-        .onExit()
-        .get()
 }
 
 fun randomUrl(): String =
