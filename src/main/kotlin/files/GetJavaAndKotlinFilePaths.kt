@@ -24,6 +24,20 @@ fun String.copyToTemp(): String {
     return tempFile.absolutePath
 }
 
+fun String.copyFileContentsTo(otherFileUrl: String) {
+    val fileToToCopy = File(this)
+    val otherFile = File(otherFileUrl)
+
+    otherFile.bufferedWriter().use { writer ->
+        fileToToCopy.useLines { lines ->
+            lines.forEach { line ->
+                writer.write(line)
+                writer.newLine()
+            }
+        }
+    }
+}
+
 private fun getFileNames(directory: File): List<String> {
     check(directory.isDirectory)
 

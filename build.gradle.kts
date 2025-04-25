@@ -1,3 +1,5 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+
 plugins {
     kotlin("jvm") version "2.1.0"
     kotlin("plugin.serialization") version "2.1.20"
@@ -29,4 +31,8 @@ tasks.withType<Jar> {
     manifest {
         attributes["Main-Class"] = "ge.nika.MainKt"
     }
+}
+
+tasks.withType<ShadowJar> {
+    archiveFileName.set("br.jar")
 }

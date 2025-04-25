@@ -1,6 +1,7 @@
 package ge.nika.task
 
 import ge.nika.configuration.Config
+import ge.nika.files.copyFileContentsTo
 import ge.nika.files.copyToTemp
 import ge.nika.files.getJavaAndKotlinFilePaths
 import ge.nika.typing.workOnFile
@@ -11,7 +12,7 @@ class WriteCode(
     private val workingDir: String,
 ) : TimedTask() {
 
-    private val tempFiles = mutableListOf<String>()
+    private val tempToWorkingFiles: MutableMap<String, String> = mutableMapOf()
 
     override val name: String = "${this::class.simpleName}: $workingDir"
 
@@ -20,7 +21,7 @@ class WriteCode(
             .shuffled()
             .forEach {
                 val tempUrl = it.copyToTemp()
-                tempFiles.add(tempUrl)
+                tempToWorkingFiles.put(tempUrl, it)
 
                 robot.workOnFile(
                     workingFileUrl = it,
@@ -31,8 +32,9 @@ class WriteCode(
     }
 
     override fun cleanUp(robot: Robot) {
-        tempFiles.forEach {
-            File(it).delete()
+        tempToWorkingFiles.forEach { (tmp, workingFile) ->
+            tmp.copyFileContentsTo(workingFile)
+            File(tmp).delete()
         }
     }
 }
