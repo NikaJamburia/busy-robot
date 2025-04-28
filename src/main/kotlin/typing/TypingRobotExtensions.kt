@@ -13,6 +13,7 @@ fun Robot.workOnFile(
     val srcFile = File(sourceUrl)
     srcFile.bufferedReader().use { reader ->
         openInIntellij(workingFileUrl)
+        Thread.sleep(2000)
 
         deleteFileContents()
         reader.readLines().forEach { line ->
@@ -21,11 +22,15 @@ fun Robot.workOnFile(
                     ?.let {
                         perform(it)
                         Thread.sleep(pauseRange.random())
+                        if (it.isSpace) {
+                            Thread.sleep(pauseRange.random()*3)
+                        }
                     }
                     ?: println("No keypress defined for char $character")
             }
             perform(KeyPress.enter())
             perform(KeyPress.home())
+            Thread.sleep(pauseRange.random()*3)
         }
     }
 }

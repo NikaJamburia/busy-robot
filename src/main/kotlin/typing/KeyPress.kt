@@ -10,4 +10,7 @@ data class KeyPress(
         fun enter() = KeyPress(KeyEvent.VK_ENTER, false)
         fun home() = KeyPress(KeyEvent.VK_HOME, false)
     }
+
+    val isSpace: Boolean
+        get() = code == KeyEvent.VK_SPACE
 }
