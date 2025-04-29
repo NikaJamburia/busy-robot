@@ -9,9 +9,11 @@ abstract class TimedTask {
     protected abstract fun run(robot: Robot)
     protected abstract fun cleanUp(robot: Robot)
 
+    private lateinit var runnerThread: Thread
+
     fun executeFor(forTime: Long, robot: Robot): Robot {
         val startTime = System.currentTimeMillis()
-        val runnerThread = thread {
+        runnerThread = thread {
             try {
                 println("Performing task $name")
                 run(robot)
@@ -33,6 +35,10 @@ abstract class TimedTask {
             println("Task $name finished in ${System.currentTimeMillis() - startTime} ms")
         }
         return robot
+    }
+
+    fun cancel() {
+        runnerThread.interrupt()
     }
 
     companion object {
