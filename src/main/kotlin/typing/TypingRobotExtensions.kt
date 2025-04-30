@@ -28,11 +28,18 @@ fun Robot.workOnFile(
                     }
                     ?: println("No keypress defined for char $character")
             }
-            perform(KeyPress.enter())
-            perform(KeyPress.home())
+            if (line.startsWith("@")) {
+                perform(KeyPress.enter())
+            }
+            startNextLine()
             Thread.sleep(pauseRange.random()*3)
         }
     }
+}
+
+private fun Robot.startNextLine() {
+    perform(KeyPress.enter())
+    perform(KeyPress.home())
 }
 
 fun Robot.perform(keyPress: KeyPress) {
